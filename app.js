@@ -7,7 +7,6 @@ var indexRouter = require('./routes/index');
 var app = express();
 
 if (app.get('env') === 'development') {
-  console.log('Morgan enabled...');
   app.use(logger('dev'));
 }
 

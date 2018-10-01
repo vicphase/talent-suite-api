@@ -4,9 +4,10 @@
   "private": true,
   "scripts": {
     "start": "node_modules/nodemon/bin/nodemon.js ./bin/www",
-    "debug": "DEBUG=express:* node bin/www"
+    "debug": "DEBUG=talent-suite-api:server node_modules/nodemon/bin/nodemon.js bin/www"
   },
   "dependencies": {
+    "config": "^2.0.1",
     "debug": "~2.6.9",
     "express": "~4.16.0",
     "http-errors": "~1.6.2",
