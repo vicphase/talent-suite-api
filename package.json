@@ -7,6 +7,7 @@
     "debug": "DEBUG=talent-suite-api:server node_modules/nodemon/bin/nodemon.js bin/www"
   },
   "dependencies": {
+    "bcrypt": "^3.0.1",
     "config": "^2.0.1",
     "debug": "~2.6.9",
     "express": "~4.16.0",

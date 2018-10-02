@@ -19,11 +19,9 @@ if (app.get('env') === 'development') {
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
-app.use('/auth', authRoutes);
-app.use('/skills', skillsRoutes);
-app.use('/users', usersRoutes);
-
-app.set('view engine', 'jade');
+app.use('/api/auth', authRoutes);
+app.use('/api/skills', skillsRoutes);
+app.use('/api/users', usersRoutes);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

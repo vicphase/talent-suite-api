@@ -1,6 +1,8 @@
 const express = require('express');
 const router = express.Router();
 const _ = require('lodash');
+const bcrypt = require('bcrypt');
+const Joi = require('joi');
 const { User } = require('../models/user.model');
 
 router.post('/', async (req, res) => {
@@ -9,15 +11,13 @@ router.post('/', async (req, res) => {
     return res.status(400).send(error.details[0].message);
   }
   let user = await User.findOne({ email: req.body.email });
-  if (user) {
+
+  const validPassword = await bcrypt.compare(req.body.password, user.password);
+  if (!validPassword) {
     return res.status(400).send('Invalid email or password.');
   }
 
-  user = new User(req.body);
-
-  await user.save();
-
-  res.send(_.pick(user, ['_id', 'name', 'email', 'skills']));
+  res.send(true);
 });
 
 function validate(user) {
