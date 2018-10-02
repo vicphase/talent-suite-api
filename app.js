@@ -1,10 +1,13 @@
-var createError = require('http-errors');
-var express = require('express');
-var logger = require('morgan');
+const createError = require('http-errors');
+const express = require('express');
+const logger = require('morgan');
+const mongoose = require('mongoose');
+const app = express();
 
-var indexRouter = require('./routes/index');
+// Routes
+const skillsRouter = require('./routes/skills.route');
 
-var app = express();
+mongoose.connect('mongodb://localhost/talent-suite')
 
 if (app.get('env') === 'development') {
   app.use(logger('dev'));
@@ -13,7 +16,7 @@ if (app.get('env') === 'development') {
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
-app.use('/', indexRouter);
+app.use('/skills', skillsRouter);
 
 app.set('view engine', 'html');
 
