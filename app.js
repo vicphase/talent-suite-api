@@ -5,7 +5,8 @@ const mongoose = require('mongoose');
 const app = express();
 
 // Routes
-const skillsRouter = require('./routes/skills.router');
+const skillsRoutes = require('./routes/skills.routes');
+const usersRoutes = require('./routes/users.routes');
 
 mongoose.set('useCreateIndex', true);
 mongoose.connect('mongodb://localhost/talent-suite', { useNewUrlParser: true })
@@ -17,7 +18,8 @@ if (app.get('env') === 'development') {
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
-app.use('/skills', skillsRouter);
+app.use('/skills', skillsRoutes);
+app.use('/users', usersRoutes);
 
 app.set('view engine', 'jade');
 

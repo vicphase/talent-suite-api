@@ -6,4 +6,4 @@ const userSchema = new Schema({
     skills: [{ skill: { type: Schema.ObjectId, ref: 'Skill' }, level: Number }],
 });
 
-module.exports = mongoose.model('Skill', skillSchema);
+module.exports = mongoose.model('User', userSchema);

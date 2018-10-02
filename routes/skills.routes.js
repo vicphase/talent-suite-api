@@ -1,24 +1,24 @@
-var express = require("express");
+var express = require('express');
 var router = express.Router();
-var Skill = require("../models/skill.model");
+var Skill = require('../models/skill.model');
 
-router.get("/", async (req, res) => {
+router.get('/', async (req, res) => {
   const skills = await Skill.find();
   res.send(skills);
 });
 
-router.get("/:id", async (req, res) => {
+router.get('/:id', async (req, res) => {
   const skill = await Skill.findById(req.params.id);
   res.send(skill);
 });
 
-router.post("/", async (req, res) => {
+router.post('/', async (req, res) => {
   const newSkill = new Skill(req.body);
   const postSkill = await newSkill.save();
   res.send(postSkill);
 });
 
-router.put("/:id", async (req, res) => {
+router.put('/:id', async (req, res) => {
   const putSkill = await Skill.findByIdAndUpdate(
     req.params.id,
     { $set: req.body },
@@ -27,7 +27,7 @@ router.put("/:id", async (req, res) => {
   res.send(putSkill);
 });
 
-router.delete("/:id", async (req, res) => {
+router.delete('/:id', async (req, res) => {
   const deleteSkill = await Skill.findByIdAndRemove(req.params.id);
   res.send(deleteSkill);
 });
