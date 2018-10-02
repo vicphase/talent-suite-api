@@ -1,6 +1,6 @@
-var express = require('express');
-var router = express.Router();
-var Skill = require('../models/skill.model');
+const express = require('express');
+const router = express.Router();
+const Skill = require('../models/skill.model');
 
 router.get('/', async (req, res) => {
   const skills = await Skill.find();

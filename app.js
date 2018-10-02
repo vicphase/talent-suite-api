@@ -5,6 +5,7 @@ const mongoose = require('mongoose');
 const app = express();
 
 // Routes
+const authRoutes = require('./routes/auth.routes');
 const skillsRoutes = require('./routes/skills.routes');
 const usersRoutes = require('./routes/users.routes');
 
@@ -18,6 +19,7 @@ if (app.get('env') === 'development') {
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
+app.use('/auth', authRoutes);
 app.use('/skills', skillsRoutes);
 app.use('/users', usersRoutes);
 
