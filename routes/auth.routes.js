@@ -3,6 +3,7 @@ const router = express.Router();
 const _ = require('lodash');
 const bcrypt = require('bcrypt');
 const Joi = require('joi');
+const jwt = require('jsonwebtoken');
 const { User } = require('../models/user.model');
 
 router.post('/', async (req, res) => {
@@ -17,7 +18,8 @@ router.post('/', async (req, res) => {
     return res.status(400).send('Invalid email or password.');
   }
 
-  res.send(true);
+  const token = jwt.sign({ _id: user._id }, 'jwtPrivateKey');
+  res.send(token);
 });
 
 function validate(user) {
