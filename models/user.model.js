@@ -3,6 +3,12 @@ const mongoose = require('mongoose');
 const jwt = require('jsonwebtoken');
 const config = require('config');
 
+const userRoles = {
+  prospect: 'prospect',
+  employee: 'employee',
+  admin: 'admin'
+};
+
 const userSchema = new mongoose.Schema({
   name: {
     type: String,
@@ -24,14 +30,18 @@ const userSchema = new mongoose.Schema({
     minlength: 5,
     maxlength: 1024
   },
+  role: {
+    type: String,
+    required: true
+  },
   skills: [
     { skill: { type: mongoose.Schema.ObjectId, ref: 'Skill' }, level: Number }
   ]
 });
 
 userSchema.methods.generateAuthToken = function() {
-  return jwt.sign({ _id: this._id }, config.get('jwtPrivateKey'));
-}
+  return jwt.sign({ _id: this._id, role: this.role }, config.get('jwtPrivateKey'));
+};
 
 const User = mongoose.model('User', userSchema);
 
@@ -58,3 +68,4 @@ function validateUser(user) {
 
 module.exports.User = User;
 module.exports.validate = validateUser;
+module.exports.userRoles = userRoles;
