@@ -1,7 +1,9 @@
-const createError = require('http-errors');
+const config = require('config');
 const express = require('express');
-const logger = require('morgan');
+const createError = require('http-errors');
 const mongoose = require('mongoose');
+const logger = require('morgan');
+
 const app = express();
 
 // Routes
@@ -9,8 +11,16 @@ const authRoutes = require('./routes/auth.routes');
 const skillsRoutes = require('./routes/skills.routes');
 const usersRoutes = require('./routes/users.routes');
 
+if (!config.get('jwtPrivateKey')) {
+  console.error('FATAL ERROR: jwtPrivateKey is not defined');
+  process.exit(1);
+}
+
 mongoose.set('useCreateIndex', true);
-mongoose.connect('mongodb://localhost/talent-suite', { useNewUrlParser: true })
+mongoose.connect(
+  'mongodb://localhost/talent-suite',
+  { useNewUrlParser: true }
+);
 
 if (app.get('env') === 'development') {
   app.use(logger('dev'));
