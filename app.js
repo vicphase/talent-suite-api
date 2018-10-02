@@ -5,9 +5,10 @@ const mongoose = require('mongoose');
 const app = express();
 
 // Routes
-const skillsRouter = require('./routes/skills.route');
+const skillsRouter = require('./routes/skills.router');
 
-mongoose.connect('mongodb://localhost/talent-suite')
+mongoose.set('useCreateIndex', true);
+mongoose.connect('mongodb://localhost/talent-suite', { useNewUrlParser: true })
 
 if (app.get('env') === 'development') {
   app.use(logger('dev'));
@@ -18,7 +19,7 @@ app.use(express.urlencoded({ extended: false }));
 
 app.use('/skills', skillsRouter);
 
-app.set('view engine', 'html');
+app.set('view engine', 'jade');
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
@@ -33,7 +34,7 @@ app.use(function(err, req, res, next) {
 
   // render the error page
   res.status(err.status || 500);
-  res.render('error');
+  res.json(err);
 });
 
 module.exports = app;
