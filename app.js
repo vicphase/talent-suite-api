@@ -4,6 +4,7 @@ const express = require('express');
 const createError = require('http-errors');
 const mongoose = require('mongoose');
 const logger = require('morgan');
+const winston = require('winston');
 
 const app = express();
 
@@ -11,6 +12,8 @@ const app = express();
 const authRoutes = require('./routes/auth.routes');
 const skillsRoutes = require('./routes/skills.routes');
 const usersRoutes = require('./routes/users.routes');
+
+winston.add(new winston.transports.File({ filename: 'logfile.log' }));
 
 if (!config.get('jwtPrivateKey')) {
   console.error('FATAL ERROR: jwtPrivateKey is not defined');
@@ -45,8 +48,11 @@ app.use(function(err, req, res, next) {
   res.locals.message = err.message;
   res.locals.error = req.app.get('env') === 'development' ? err : {};
 
+  // log the error
+  winston.error(err.message, err);
+
   // render the error page
-  res.status(err.status || 500).send(err);
+  res.status(err.status || 500).send('Internal server error');
 });
 
 module.exports = app;

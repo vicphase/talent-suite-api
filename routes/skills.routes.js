@@ -5,12 +5,8 @@ const auth = require('../middleware/auth');
 const router = express.Router();
 
 router.get('/', auth, async (req, res, next) => {
-  try {
-    const skills = await Skill.find();
-    res.send(skills);
-  } catch (e) {
-    next(e);
-  }
+  const skills = await Skill.find();
+  res.send(skills);
 });
 
 router.get('/:id', auth, async (req, res) => {
