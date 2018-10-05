@@ -6,6 +6,8 @@
   },
   "rules": {
     "quotes": ["error", "single"],
-    "semi": ["error", "always"]
+    "semi": ["error", "always"],
+    "prefer-const": ["error"],
+    "space-before-function-paren": ["error", "never"]
   }
 }

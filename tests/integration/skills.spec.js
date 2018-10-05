@@ -11,13 +11,13 @@ describe('/api/skills', () => {
     token = new User({ role: userRoles.admin }).generateAuthToken();
   });
 
-  afterEach(async () => {
+  afterEach(async() => {
     server.close();
     await Skill.remove({});
   });
 
   describe('GET /', () => {
-    it('should return all the skills', async () => {
+    it('should return all the skills', async() => {
       await Skill.collection.insertMany([
         { name: 'skill1' },
         { name: 'skill2' }
@@ -34,7 +34,7 @@ describe('/api/skills', () => {
     });
   });
   describe('GET /:id', () => {
-    it('should return a skill if a valid id is passed', async () => {
+    it('should return a skill if a valid id is passed', async() => {
       const skill = new Skill({ name: 'skill' });
       await skill.save();
 
@@ -47,7 +47,7 @@ describe('/api/skills', () => {
       expect(true).toBeTruthy();
     });
 
-    it('should return 404 if invalid id is passed', async () => {
+    it('should return 404 if invalid id is passed', async() => {
       const res = await request(server)
         .get('/api/skills/1')
         .set('access-token', token);
@@ -56,14 +56,14 @@ describe('/api/skills', () => {
     });
   });
   describe('POST /', () => {
-    it('should return 401 if client is not logged in', async () => {
+    it('should return 401 if client is not logged in', async() => {
       const res = await request(server)
         .post('/api/skills')
         .send({ name: 'skill' });
 
       expect(res.status).toEqual(401);
     });
-    it('should return 400 if skill is invalid', async () => {
+    it('should return 400 if skill is invalid', async() => {
       const res = await request(server)
         .post('/api/skills')
         .set('access-token', token)
@@ -72,7 +72,7 @@ describe('/api/skills', () => {
       expect(res.status).toEqual(400);
     });
 
-    it('should save the skill if is valid', async () => {
+    it('should save the skill if is valid', async() => {
       await request(server)
         .post('/api/skills')
         .set('access-token', token)

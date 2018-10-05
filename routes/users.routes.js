@@ -8,17 +8,30 @@ const { User, validate } = require('../models/user.model');
 
 const router = express.Router();
 
-router.get('/', [auth, admin], async (req, res) => {
+/**
+ * @swagger
+ * /api/users:
+ *   get:
+ *     tags:
+ *       - users
+ *     description: Returns all users
+ *     produces:
+ *       - application/json
+ *     responses:
+ *       200:
+ *         description: An array of users
+ */
+router.get('/', [auth, admin], async(req, res) => {
   const users = await User.find();
   res.send(users);
 });
 
-router.get('/me', auth, async (req, res) => {
+router.get('/me', auth, async(req, res) => {
   const user = await User.findById(req.user._id).select('-password');
   res.send(user);
 });
 
-router.post('/', async (req, res) => {
+router.post('/', async(req, res) => {
   const { error } = validate(req.body);
   if (error) {
     return res.status(400).send(error.details[0].message);

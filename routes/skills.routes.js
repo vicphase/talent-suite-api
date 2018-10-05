@@ -5,17 +5,17 @@ const validateObjectId = require('../middleware/validateObjectId');
 
 const router = express.Router();
 
-router.get('/', auth, async (req, res) => {
+router.get('/', auth, async(req, res) => {
   const skills = await Skill.find();
   res.send(skills);
 });
 
-router.get('/:id', [auth, validateObjectId], async (req, res) => {
+router.get('/:id', [auth, validateObjectId], async(req, res) => {
   const skill = await Skill.findById(req.params.id);
   res.send(skill);
 });
 
-router.post('/', auth, async (req, res) => {
+router.post('/', auth, async(req, res) => {
   const { error } = validate(req.body);
 
   if (error) {
@@ -27,7 +27,7 @@ router.post('/', auth, async (req, res) => {
   res.send(skill);
 });
 
-router.put('/:id', auth, async (req, res) => {
+router.put('/:id', auth, async(req, res) => {
   const putSkill = await Skill.findByIdAndUpdate(
     req.params.id,
     { $set: req.body },
@@ -36,7 +36,7 @@ router.put('/:id', auth, async (req, res) => {
   res.send(putSkill);
 });
 
-router.delete('/:id', auth, async (req, res) => {
+router.delete('/:id', auth, async(req, res) => {
   const deleteSkill = await Skill.findByIdAndRemove(req.params.id);
   res.send(deleteSkill);
 });
