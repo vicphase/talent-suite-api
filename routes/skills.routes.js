@@ -1,15 +1,16 @@
 const express = require('express');
-const Skill = require('../models/skill.model');
+const { Skill } = require('../models/skill.model');
 const auth = require('../middleware/auth');
+const validateObjectId = require('../middleware/validateObjectId');
 
 const router = express.Router();
 
-router.get('/', auth, async (req, res, next) => {
+router.get('/', auth, async (req, res) => {
   const skills = await Skill.find();
   res.send(skills);
 });
 
-router.get('/:id', auth, async (req, res) => {
+router.get('/:id', [auth, validateObjectId], async (req, res) => {
   const skill = await Skill.findById(req.params.id);
   res.send(skill);
 });

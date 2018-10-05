@@ -3,6 +3,7 @@ const express = require('express');
 const authRoutes = require('../routes/auth.routes');
 const skillsRoutes = require('../routes/skills.routes');
 const usersRoutes = require('../routes/users.routes');
+const winston = require('winston');
 
 module.exports = function(app) {
   app.use(express.json());
@@ -25,6 +26,8 @@ module.exports = function(app) {
 
     // log the error
     winston.error(err.message, err);
+
+    console.error(err.message);
 
     // render the error page
     res.status(err.status || 500).send('Internal server error');
