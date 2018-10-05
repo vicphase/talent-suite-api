@@ -3,17 +3,23 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "start": "node_modules/nodemon/bin/nodemon.js ./bin/www",
+    "start": "node ./bin/www",
+    "dev": "node_modules/nodemon/bin/nodemon.js ./bin/www",
     "debug": "DEBUG=talent-suite-api:server node_modules/nodemon/bin/nodemon.js bin/www",
     "test": "jest --watchAll --verbose --coverage",
     "key": "export jwtPrivateKey=key"
   },
+  "engines": {
+    "node": "8.12.0"
+  },
   "dependencies": {
     "bcrypt": "^3.0.1",
+    "compression": "^1.7.3",
     "config": "^2.0.1",
     "debug": "~2.6.9",
     "express": "~4.16.0",
     "express-async-errors": "^3.0.0",
+    "helmet": "^3.13.0",
     "http-errors": "~1.6.2",
     "joi": "^13.7.0",
     "joi-objectid": "^2.0.0",
