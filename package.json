@@ -5,7 +5,7 @@
   "scripts": {
     "start": "node_modules/nodemon/bin/nodemon.js ./bin/www",
     "debug": "DEBUG=talent-suite-api:server node_modules/nodemon/bin/nodemon.js bin/www",
-    "test": "jest --watchAll --verbose",
+    "test": "jest --watchAll --verbose --coverage",
     "key": "export jwtPrivateKey=key"
   },
   "dependencies": {
