@@ -55,4 +55,32 @@ describe('/api/skills', () => {
       expect(res.status).toEqual(404);
     });
   });
+  describe('POST /', () => {
+    it('should return 401 if client is not logged in', async () => {
+      const res = await request(server)
+        .post('/api/skills')
+        .send({ name: 'skill' });
+
+      expect(res.status).toEqual(401);
+    });
+    it('should return 400 if skill is invalid', async () => {
+      const res = await request(server)
+        .post('/api/skills')
+        .set('access-token', token)
+        .send({});
+
+      expect(res.status).toEqual(400);
+    });
+
+    it('should save the skill if is valid', async () => {
+      await request(server)
+        .post('/api/skills')
+        .set('access-token', token)
+        .send({ name: 'skill' });
+
+      const skill = await Skill.find({ name: 'skill' });
+
+      expect(skill).not.toBeNull();
+    });
+  });
 });

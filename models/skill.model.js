@@ -3,14 +3,24 @@ const Schema = mongoose.Schema;
 const Joi = require('joi');
 
 const skillSchema = new Schema({
-    name: {type: String, required: true, unique: true, uniqueCaseInsensitive: true }
+  name: {
+    type: String,
+    required: true,
+    unique: true,
+    uniqueCaseInsensitive: true,
+    minlength: 1,
+    maxlength: 50
+  }
 });
 
 const Skill = mongoose.model('Skill', skillSchema);
 
 function validateSkill(skill) {
   const schema = {
-    name: Joi.string().min(5).max(50).required()
+    name: Joi.string()
+      .min(1)
+      .max(50)
+      .required()
   };
 
   return Joi.validate(skill, schema);

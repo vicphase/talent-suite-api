@@ -1,5 +1,5 @@
 const express = require('express');
-const { Skill } = require('../models/skill.model');
+const { Skill, validate } = require('../models/skill.model');
 const auth = require('../middleware/auth');
 const validateObjectId = require('../middleware/validateObjectId');
 
@@ -16,9 +16,15 @@ router.get('/:id', [auth, validateObjectId], async (req, res) => {
 });
 
 router.post('/', auth, async (req, res) => {
-  const newSkill = new Skill(req.body);
-  const postSkill = await newSkill.save();
-  res.send(postSkill);
+  const { error } = validate(req.body);
+
+  if (error) {
+    return res.status(400).send(error.details[0].message);
+  }
+
+  const skill = new Skill(req.body);
+  await skill.save();
+  res.send(skill);
 });
 
 router.put('/:id', auth, async (req, res) => {
