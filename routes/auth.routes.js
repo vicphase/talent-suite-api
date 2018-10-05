@@ -1,7 +1,6 @@
 const bcrypt = require('bcrypt');
 const express = require('express');
 const Joi = require('joi');
-const _ = require('lodash');
 const { User } = require('../models/user.model');
 
 const router = express.Router();
@@ -22,7 +21,7 @@ router.post('/', async (req, res) => {
   res.send(token);
 });
 
-function validate(user) {
+function validate (user) {
   const schema = {
     email: Joi.string()
       .min(5)

@@ -1,7 +1,7 @@
 require('express-async-errors');
 const winston = require('winston');
 
-module.exports = function() {
+module.exports = function () {
   process.on('uncaughtException', e => {
     winston.error(e.message, e);
     process.exit(1);

@@ -1,0 +1,11 @@
+{
+  "plugins": ["jest"],
+  "extends": "standard",
+  "env": {
+    "jest/globals": true
+  },
+  "rules": {
+    "quotes": ["error", "single"],
+    "semi": ["error", "always"]
+  }
+}
