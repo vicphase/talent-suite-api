@@ -8,6 +8,13 @@
     "quotes": ["error", "single"],
     "semi": ["error", "always"],
     "prefer-const": ["error"],
-    "space-before-function-paren": ["error", "never"]
+    "space-before-function-paren": [
+      "error",
+      {
+        "anonymous": "always",
+        "named": "always",
+        "asyncArrow": "always"
+      }
+    ]
   }
 }

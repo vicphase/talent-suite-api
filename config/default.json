@@ -1,4 +1,4 @@
 {
-  "jwtPrivateKey": "",
+  "jwtPrivateKey": "key",
   "db": "mongodb://localhost/talent-suite"
 }
