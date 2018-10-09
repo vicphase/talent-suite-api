@@ -15,7 +15,7 @@ const skillSchema = new Schema({
 
 const Skill = mongoose.model('Skill', skillSchema);
 
-function validateSkill (skill) {
+const validateSkill = skill => {
   const schema = {
     name: Joi.string()
       .min(1)
@@ -24,7 +24,7 @@ function validateSkill (skill) {
   };
 
   return Joi.validate(skill, schema);
-}
+};
 
 module.exports.skillSchema = skillSchema;
 module.exports.Skill = Skill;
