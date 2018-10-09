@@ -1,7 +1,6 @@
 const bcrypt = require('bcrypt');
 const express = require('express');
-const Joi = require('joi');
-const { User } = require('../models/user.model');
+const { User, validate } = require('../models/user.model');
 
 const router = express.Router();
 
@@ -20,21 +19,5 @@ router.post('/', async (req, res) => {
   const token = user.generateAuthToken();
   res.send(token);
 });
-
-function validate (user) {
-  const schema = {
-    email: Joi.string()
-      .min(5)
-      .max(255)
-      .required()
-      .email(),
-    password: Joi.string()
-      .min(5)
-      .max(1024)
-      .required()
-  };
-
-  return Joi.validate(user, schema);
-}
 
 module.exports = router;
