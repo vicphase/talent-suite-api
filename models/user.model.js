@@ -39,13 +39,13 @@ const userSchema = new mongoose.Schema({
   ]
 });
 
-userSchema.methods.generateAuthToken = function() {
+userSchema.methods.generateAuthToken = function () {
   return jwt.sign({ _id: this._id, role: this.role }, config.get('jwtPrivateKey'));
 };
 
 const User = mongoose.model('User', userSchema);
 
-function validateUser(user) {
+function validateUser (user) {
   const schema = {
     name: Joi.string()
       .min(5)

@@ -1,7 +1,7 @@
 const express = require('express');
 const auth = require('../middleware/auth');
 const validateObjectId = require('../middleware/validateObjectId');
-const skillsController = require('../controllers/skills.controller');
+const skillsController = require('../controllers/skills.controller')();
 
 const router = express.Router();
 

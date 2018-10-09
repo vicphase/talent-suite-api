@@ -1,6 +1,6 @@
 const swaggerJSDoc = require('swagger-jsdoc');
 
-module.exports = function(app) {
+module.exports = function (app) {
   const swaggerDefinition = {
     info: {
       title: 'Talent Suite API',
@@ -17,7 +17,7 @@ module.exports = function(app) {
 
   const swaggerSpec = swaggerJSDoc(options);
 
-  app.get('/swagger.json', function(req, res) {
+  app.get('/swagger.json', function (req, res) {
     res.setHeader('Content-Type', 'application/json');
     res.send(swaggerSpec);
   });

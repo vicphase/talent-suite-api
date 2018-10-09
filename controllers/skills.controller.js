@@ -32,7 +32,7 @@ module.exports = () => {
     res.send(putSkill);
   };
 
-  const deleteSkill = async (req, res) => {
+  const deleteRequest = async (req, res) => {
     const deleteSkill = await Skill.findByIdAndRemove(req.params.id);
     res.send(deleteSkill);
   };
@@ -42,6 +42,6 @@ module.exports = () => {
     get: get,
     post: post,
     put: put,
-    delete: deleteSkill
+    delete: deleteRequest
   };
 };
