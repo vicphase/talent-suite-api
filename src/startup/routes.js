@@ -4,14 +4,18 @@ const authRoutes = require('../routes/auth.routes');
 const skillsRoutes = require('../routes/skills.routes');
 const usersRoutes = require('../routes/users.routes');
 const winston = require('winston');
-const auth = require('../middleware/auth');
+const passport = require('passport');
 
 module.exports = app => {
   app.use(express.json());
   app.use(express.urlencoded({ extended: false }));
 
   app.use('/api/auth', authRoutes);
-  app.use('/api/skills', auth, skillsRoutes);
+  app.use(
+    '/api/skills',
+    passport.authenticate('jwt', { session: false }),
+    skillsRoutes
+  );
   app.use('/api/users', usersRoutes);
 
   // catch 404 and forward to error handler

@@ -13,12 +13,16 @@ module.exports = () => {
 
   const post = async (req, res) => {
     const { error } = validate(req.body);
-
     if (error) {
       return res.status(400).send(error.details[0].message);
     }
 
-    const skill = new Skill(req.body);
+    let skill = await Skill.findOne({ name: req.body.name });
+    if (skill) {
+      return res.status(400).send('Skill already registered');
+    }
+
+    skill = new Skill(req.body);
     await skill.save();
     res.send(skill);
   };

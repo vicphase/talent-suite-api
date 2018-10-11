@@ -1,3 +1,4 @@
+require('express-async-errors');
 const express = require('express');
 const path = require('path');
 const app = express();
@@ -5,7 +6,7 @@ const app = express();
 app.use(express.static(path.join(__dirname, '../public')));
 
 require('./startup/documentation')(app);
-require('./startup/logging');
+require('./startup/logging')();
 require('./startup/passport')();
 require('./startup/routes')(app);
 require('./startup/db')();

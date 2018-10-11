@@ -44,7 +44,7 @@ module.exports = () => {
     if (error) {
       return res.status(400).send(error.details[0].message);
     }
-    passport.authenticate('local', async (err, user) => {
+    passport.authenticate('local', { session: false }, async (err, user) => {
       if (err || !user) {
         return res.status(400).send('Invalid email or password');
       }
