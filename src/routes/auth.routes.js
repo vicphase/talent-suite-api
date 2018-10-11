@@ -1,8 +1,11 @@
 const bcrypt = require('bcrypt');
 const express = require('express');
 const { User, validate } = require('../models/user.model');
+const authController = require('../controllers/auth.controller')();
 
 const router = express.Router();
+
+router.post('/signUp', authController.signUp);
 
 router.post('/', async (req, res) => {
   const { error } = validate(req.body);
