@@ -6,7 +6,7 @@ app.use(express.static(path.join(__dirname, '../public')));
 
 require('./startup/documentation')(app);
 require('./startup/logging');
-require('./startup/passport')(app);
+require('./startup/passport')();
 require('./startup/routes')(app);
 require('./startup/db')();
 require('./startup/config')();

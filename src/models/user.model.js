@@ -2,6 +2,7 @@ const Joi = require('joi');
 const mongoose = require('mongoose');
 const jwt = require('jsonwebtoken');
 const config = require('config');
+const bcrypt = require('bcrypt');
 
 const userRoles = {
   prospect: 'prospect',
@@ -46,6 +47,10 @@ userSchema.methods.generateAuthToken = function() {
   );
 };
 
+userSchema.methods.validatePassword = function(password) {
+  return bcrypt.compare(password, this.password);
+};
+
 const User = mongoose.model('User', userSchema);
 
 const validateUser = user => {
@@ -63,7 +68,7 @@ const validateUser = user => {
       .min(5)
       .max(1024)
       .required(),
-    skills: Joi.array().required()
+    skills: Joi.array()
   };
 
   return Joi.validate(user, schema);

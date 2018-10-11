@@ -1,18 +1,23 @@
 const passport = require('passport');
+const LocalStrategy = require('passport-local');
+const { User } = require('../models/user.model');
 
-require('./passport-local')();
+module.exports = () => {
+  passport.use(
+    new LocalStrategy(
+      {
+        usernameField: 'email',
+        passwordField: 'password'
+      },
+      async (email, password, done) => {
+        const user = await User.findOne({ email: email });
 
-module.exports = app => {
-  app.use(passport.initialize());
-  app.use(passport.session());
-
-  // Store user in session
-  passport.serializeUser((user, done) => {
-    done(null, user);
-  });
-
-  // Retreives user from session
-  passport.deserializeUser((user, done) => {
-    done(null, user);
-  });
+        const validPassword = await user.validatePassword(password);
+        if (!validPassword) {
+          return done('Invalid email or password.', null);
+        }
+        return done(null, user);
+      }
+    )
+  );
 };
